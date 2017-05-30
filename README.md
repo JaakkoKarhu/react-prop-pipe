@@ -4,7 +4,7 @@ A boilerplate project to get started building modular React components, and depl
 
 ## Getting started
 
-1. `git clone https://github.com/gregchamberlain/react-component-boilerplate.git`
+1. `git clone https://github.com/jaakkokarhu/react-component-boilerplate.git`
 2. cd into project
 3. `git remote remove origin`
 4. `git remote add origin <your-git-remote-url>`

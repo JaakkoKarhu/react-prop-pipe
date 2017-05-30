@@ -1,11 +1,13 @@
 var path = require('path');
 var webpack = require('webpack');
 
+console.log(__dirname)
+
 module.exports = {
   entry: './site/src/index.js',
 
   output: {
-    path: path.join(__dirname, 'site', 'dist'),
+    path: path.resolve(__dirname, '..', 'site', 'dist'),
     filename: 'bundle.js',
   },
 

@@ -2,16 +2,6 @@
 
 A boilerplate project to get started building modular React components, and deploying them to NPM.
 
-## Getting started
-
-1. `git clone https://github.com/jaakkokarhu/react-component-boilerplate.git`
-2. cd into project
-3. `git remote remove origin`
-4. `git remote add origin <your-git-remote-url>`
-5. `yarn install` or `npm install`
-6. Update package.json with relevant information (name, description, keywords, repository, author, license, bugs, homepage)
-
-
 ## Development
 
 The development environment is already setup and ready to go (hot-loading and linting included!)
@@ -24,11 +14,6 @@ The development environment is already setup and ready to go (hot-loading and li
 
 Tests are written in the `/test` directory, using [Jest](https://facebook.github.io/jest), and [enzyme](https://github.com/airbnb/enzyme)
 
-## Publishing to npm
-
-1. Ensure correct information in package.json
-2. `npm publish` (this will build the project, then publish it)
-
 ## Building the static site for deployment
 
 The code in /site can be build into a static site and deployed (examples, docs, etc. are a great use case!)
@@ -40,3 +25,7 @@ The code in /site can be build into a static site and deployed (examples, docs, 
 1. From repo page Settings => Github Pages, set Source to `master branch`
 2. `npm run buildSite`
 2. `git push origin master`
+
+## Aknowledgements
+
+Project uses [React Component Boilerplate](https://github.com/gregchamberlain/react-component-boilerplate) by [Greg Chamberlain](https://github.com/gregchamberlain)

@@ -1,7 +1,7 @@
 {
-  "name": "react-component-boilerplate",
+  "name": "react-prop-pipe",
   "version": "0.1.0",
-  "description": "A simple responsive sidebar component for React",
+  "description": "HOC for adding props to the children, without modifying the children",
   "keywords": [
     "react",
     "react-component"
@@ -19,14 +19,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gregchamberlain/react-component-boilerplate.git"
+    "url": "git+https://github.com/jaakkokarhu/react-prop-pipe.git"
   },
-  "author": "Greg Chamberlain <gregchamberlain94@gmail.com> (https://gregchamberlain.github.io)",
+  "author": "Jaakko Karhu <jaakko.st.karhu@gmail.com> (https://jaakkokarhu.github.io)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gregchamberlain/react-component-boilerplate/issues"
+    "url": "https://github.com/jaakkokarhu/react-prop-pipe/issues"
   },
-  "homepage": "https://github.com/gregchamberlain/react-component-boilerplate#readme",
+  "homepage": "https://github.com/jaakkokarhu/react-prop-pipe#readme",
   "devDependencies": {
     "babel-cli": "^6.14.0",
     "babel-core": "^6.5.2",

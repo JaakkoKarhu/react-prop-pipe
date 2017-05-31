@@ -45,23 +45,24 @@ const MakeComp = (Target, props) => {
 }
 
 const PropPipe = (Target, origin) => {
-  console.log('TARGET', Target, origin)
-  return class PropPipe extends Target {
-    constructor(props) {
-      super(props)
-      let pipedTarget
-      if (!!this.render) {
+  console.log('TARGET', !!Target.prototype.render, Target.name)
+  if (!!Target.prototype.render) {
+    return class PropPipe extends Target {
+      constructor(props) {
+        super(props)
+        let pipedTarget
         const rComp = this.render(),
           { type } = rComp, // Prefix: r = rendered
           rProps = rComp.props
         pipedTarget = getPipedTarget(type, rProps)
-        console.log('SUCCCESS')
         this.render = () => {
           return(pipedTarget)
         }
-      } else {
-        console.log('DEBUGGESS', origin)
-        //getPipedTarget(MakeComp(Target, { children: []}))
+      }
+    }
+  } else {
+    return class PropPipe extends React.Component {
+      render() {
         return <Target />
       }
     }

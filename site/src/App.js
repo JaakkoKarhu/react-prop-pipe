@@ -82,10 +82,14 @@ const Stateless = ({test='test-prop'}) => (
 const PipedNestedBoxes = PropPipe(NestedBoxes)
 const PipedMultiple = PropPipe(MultipleNested)
 const PipedComplex = PropPipe(Complex)
+const PipedStateless = PropPipe(Stateless)
 
 
 const App = () => (
   <div>
+    <section>
+      <PipedStateless />
+    </section>
     <section>
       <p>
         Component (div => div) ) => String

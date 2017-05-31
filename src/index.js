@@ -2,34 +2,40 @@ import React from 'react';
 
 const getPipedTarget = (type, props) => {
 
-  let childrenArr = []
+  let children
   props = props
   ? { ...props, className: props.className + ' red' }
   : null
 
-  if (Array.isArray(props.children))  {
-    childrenArr = [ ...props.children ] // multiple children
-  } else if (props.children) {
-    childrenArr.push(props.children) // one children
-  }
-  for (let i in childrenArr) {
-    const child = childrenArr[i]
-    if (isStateless(child.type)) { // Stateless component
-      childrenArr[i] = PropPipe(child.type)
-    } else if (typeof child.type == 'function') { // Stateful component
-      const Child = MakeComp(child.type, child.props),
-            PipedChild = PropPipe(Child)
-      childrenArr[i] = <PipedChild />
-    } else if (typeof child.type == 'string') { // Element
-      childrenArr[i] = getPipedTarget(child.type, child.props)
+  if (Array.isArray(props.children))  { // multiple
+    children = [ ...props.children ]
+    for (let i in children) {
+      const child = children[i]
+      children[i] = handleChild(child)
     }
+  } else if (props.children) { // single
+    children = handleChild(props.children)
   }
-  if(typeof type=='function') { // IF THE WRAPPER IS A CLASS, WHAT THEN?
+  if(typeof type=='function') {
     const Piped = PropPipe(type)
     return <Piped { ...props } />
   } else {
     const Elem = type
-    return <Elem { ...props }>{childrenArr}</Elem>
+    return <Elem { ...props }>{children}</Elem>
+  }
+}
+
+const handleChild = (child) => {
+  if (isStateless(child.type)) { // Stateless component
+    return PropPipe(child.type)
+  } else if (typeof child.type == 'function') { // Stateful component
+    const Child = MakeComp(child.type, child.props),
+          PipedChild = PropPipe(Child)
+    return <PipedChild />
+  } else if (typeof child.type == 'string') { // Element
+    return getPipedTarget(child.type, child.props)
+  } else {
+    return child
   }
 }
 

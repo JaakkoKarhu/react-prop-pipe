@@ -45,7 +45,7 @@ const MakeComp = (Target, props) => {
 }
 
 const PropPipe = (Target, origin) => {
-  console.log('TARGET', !!Target.prototype.render, Target.name)
+  //console.log('TARGET', !!Target.prototype.render, Target.name)
   if (!!Target.prototype.render) {
     return class PropPipe extends Target {
       constructor(props) {
@@ -61,9 +61,15 @@ const PropPipe = (Target, origin) => {
       }
     }
   } else {
-    return class PropPipe extends React.Component {
-      render() {
-        return <Target />
+    return class extends React.Component {
+      constructor(props) {
+        super(props)
+        console.log('TARGGET', Target({}))
+        const target = Target({})
+        let piped = getPipedTarget(target.type, target.props)
+        this.render = () => {
+          return(piped)
+        }
       }
     }
   }

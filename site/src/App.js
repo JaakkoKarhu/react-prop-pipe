@@ -69,13 +69,12 @@ const passMeProps = (WrappedComponent) => {
    return LoggerWrap
 }
 
-const Test = ({}) => (
-  <h2>Saatanan työmaa</h2>
-)
-
-const Stateless = ({test='test-prop'}) => (
+const Stateless = ({props, children}) => (
   <div className='box'>
-    Stateless
+    <p>Lol</p>
+    <div className='box_2'>
+      Wuut
+    </div>
   </div>
 )
 

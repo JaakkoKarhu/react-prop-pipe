@@ -58,9 +58,31 @@ class Complex extends React.Component {
   }
 }
 
+const passMeProps = (WrappedComponent) => {
+   class LoggerWrap extends React.Component {
+     render() {
+       return (
+         <WrappedComponent greeting={'Yo!'}/>
+       )
+     }
+   }
+   return LoggerWrap
+}
+
+const Test = ({}) => (
+  <h2>Saatanan työmaa</h2>
+)
+
+const Stateless = ({test='test-prop'}) => (
+  <div className='box'>
+    Stateless
+  </div>
+)
+
 const PipedNestedBoxes = PropPipe(NestedBoxes)
 const PipedMultiple = PropPipe(MultipleNested)
 const PipedComplex = PropPipe(Complex)
+
 
 const App = () => (
   <div>
@@ -80,9 +102,16 @@ const App = () => (
     </section>
     <section>
       <p>
-        Component (div => div ) => Component ( div => div) => String
+        div => String,
+               Component (div => div) => div => String,
+               Component (div => div) => Component (div => div) => String,
+               div => String
       </p>
       <PipedComplex />
+    </section>
+    <section>
+      <p>
+      </p>
     </section>
   </div>
 );

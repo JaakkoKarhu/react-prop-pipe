@@ -35,12 +35,55 @@ class MultipleNested extends React.Component {
   }
 }
 
+class Complex extends React.Component {
+  render() {
+    return (
+      <div className='box'>
+        ___TEXT___
+        <NestedBoxes>
+          <div className='yellow'>
+            ___MORE___
+          </div>
+          <NestedBoxes>
+            <NestedBoxes>
+              ___FINAL___
+            </NestedBoxes>
+          </NestedBoxes>
+        </NestedBoxes>
+        <div className='box'>
+          Just a div
+        </div>
+      </div>
+    )
+  }
+}
+
 const PipedNestedBoxes = PropPipe(NestedBoxes)
 const PipedMultiple = PropPipe(MultipleNested)
+const PipedComplex = PropPipe(Complex)
 
 const App = () => (
   <div>
-    <PipedMultiple />
+    <section>
+      <p>
+        Component (div => div) ) => String
+      </p>
+    <PipedNestedBoxes>
+      ____FINAL____
+    </PipedNestedBoxes>
+    </section>
+    <section>
+      <p>
+        Component (div => div ) => Component ( div => div) => String
+      </p>
+      <PipedMultiple />
+    </section>
+    <section>
+      <p>
+        Component (div => div ) => Component ( div => div) => String
+      </p>
+      <PipedComplex />
+    </section>
   </div>
 );
 

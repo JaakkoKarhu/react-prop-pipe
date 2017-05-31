@@ -5,5 +5,21 @@
 }
 
 .red {
-  border: solid thin red;
+  border: solid thin salmon;
+  color: salmon;
+}
+
+.clearfix {
+  border-top: dashed thin lightblue;
+  clear: both;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  float: left;
+  width: 100%;
+}
+
+section {
+  padding: 15px;
+  border-bottom: dashed thin lightblue;
+  overflow: auto;
 }

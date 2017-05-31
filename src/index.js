@@ -1,5 +1,4 @@
 import React from 'react';
-let __COUNT = 0
 const getPipedTarget = (type, props) => {
   let childrenArr = []
   props = props
@@ -26,9 +25,8 @@ const getPipedTarget = (type, props) => {
     }
   }
   if(typeof type=='function') { // IF THE WRAPPER IS A CLASS, WHAT THEN?
-    console.log('WRAP', type)
-    const _WAT = PropPipe(type, 'WRAP')
-    return React.createElement(_WAT, props, childrenArr)
+    const Piped = PropPipe(type, 'WRAP')
+    return React.createElement(Piped, props)
   } else {
     return React.createElement(type, props, childrenArr)
   }
@@ -38,7 +36,6 @@ const MakeComp = (Target, props) => {
   return class extends Target {
     constructor(props) {
       super(props)
-      console.log('TESTTTT', Target)
     }
     render() {
       return (
@@ -49,18 +46,13 @@ const MakeComp = (Target, props) => {
 }
 
 const PropPipe = (Target, origin) => {
-  __COUNT++
   return class PropPipe extends Target {
     constructor(props) {
       super(props)
-      const renderedComp = this.render(),
-            type = renderedComp.type,
-            propsCp = { ...renderedComp.props }, // see if have to be cp
-            pipedTarget = getPipedTarget(type, propsCp)
-      if (propsCp['data-debug']) {
-        console.log('debug', propsCp['data-debug'])
-      }
-      console.log('ORIGIN', origin, 'AFTR', renderedComp)
+      const rComp = this.render(),
+            { type } = rComp, // Prefix: r = rendered
+            rProps = rComp.props,
+            pipedTarget = getPipedTarget(type, rProps)
       this.render = () => {
         return(pipedTarget)
       }

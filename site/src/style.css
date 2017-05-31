@@ -1,0 +1,9 @@
+.box {
+  padding: 10px;
+  border: solid thin #ccc;
+  float: left;
+}
+
+.red {
+  border: solid thin red;
+}

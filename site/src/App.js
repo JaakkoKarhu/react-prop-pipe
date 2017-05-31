@@ -71,21 +71,32 @@ const passMeProps = (WrappedComponent) => {
 
 const Stateless = ({props, children}) => (
   <div className='box'>
-    <p>Lol</p>
     <div className='box_2'>
-      Wuut
+      ___FINAL___
     </div>
   </div>
 )
 
+const NestedStateless = ({props, children}) => (
+  <div className='box'>
+    <div className='box'>
+      <Stateless />
+      ___FIRST___
+    </div>
+  </div>
+)
 const PipedNestedBoxes = PropPipe(NestedBoxes)
 const PipedMultiple = PropPipe(MultipleNested)
 const PipedComplex = PropPipe(Complex)
 const PipedStateless = PropPipe(Stateless)
+const PipedNestedStateless = PropPipe(NestedStateless)
 
 
 const App = () => (
   <div>
+    <section>
+      <PipedNestedStateless />
+    </section>
     <section>
       <PipedStateless />
     </section>

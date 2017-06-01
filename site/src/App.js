@@ -69,23 +69,37 @@ const passMeProps = (WrappedComponent) => {
    return LoggerWrap
 }
 
-const Test = ({}) => (
-  <h2>Saatanan työmaa</h2>
-)
-
-const Stateless = ({test='test-prop'}) => (
+const Stateless = ({props, children}) => (
   <div className='box'>
-    Stateless
+    <div className='box_2'>
+      ___FINAL___
+    </div>
   </div>
 )
 
+const NestedStateless = ({props, children}) => (
+  <div className='box'>
+    <div className='box'>
+      <Stateless />
+      ___FIRST___
+    </div>
+  </div>
+)
 const PipedNestedBoxes = PropPipe(NestedBoxes)
 const PipedMultiple = PropPipe(MultipleNested)
 const PipedComplex = PropPipe(Complex)
+const PipedStateless = PropPipe(Stateless)
+const PipedNestedStateless = PropPipe(NestedStateless)
 
 
 const App = () => (
   <div>
+    <section>
+      <PipedNestedStateless />
+    </section>
+    <section>
+      <PipedStateless />
+    </section>
     <section>
       <p>
         Component (div => div) ) => String

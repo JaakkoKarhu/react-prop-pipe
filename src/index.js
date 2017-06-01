@@ -1,68 +1,73 @@
 import React from 'react';
+
 const getPipedTarget = (type, props) => {
-  let childrenArr = []
+
+  let children
   props = props
   ? { ...props, className: props.className + ' red' }
   : null
 
-  if (Array.isArray(props.children))  {
-    childrenArr = [ ...props.children ] // multiple children
-  } else if (props.children) {
-    childrenArr.push(props.children) // one children
-  }
-
-  for (let i in childrenArr) {
-    const child = childrenArr[i]
-    if (typeof child.type == 'function') { // Component class
-      const Child = MakeComp(child.type, child.props),
-            PipedChild = PropPipe(Child)
-      childrenArr[i] = <PipedChild />
-    } else if (typeof child.type == 'string') { // Element
-      childrenArr[i] = getPipedTarget(child.type, child.props)
-    } else if (typeof child.type == undefined) {
-      // is string
+  if (Array.isArray(props.children))  { // multiple
+    children = [ ...props.children ]
+    for (let i in children) {
+      const child = children[i]
+      children[i] = handleChild(child)
     }
+  } else if (props.children) { // single
+    children = handleChild(props.children)
   }
-  if(typeof type=='function') { // IF THE WRAPPER IS A CLASS, WHAT THEN?
+  if(typeof type=='function') {
     const Piped = PropPipe(type)
-    return React.createElement(Piped, props)
+    return <Piped { ...props } />
   } else {
-    return React.createElement(type, props, childrenArr)
+    const Elem = type
+    return <Elem { ...props }>{children}</Elem>
   }
 }
 
-const MakeComp = (Target, props) => {
-  return class extends Target {
-    constructor(props) {
-      super(props)
-    }
-    render() {
-      return (
-        React.createElement(Target, props)
-      )
-    }
+const handleChild = (child) => {
+  if (isStateless(child.type)) { // Stateless component
+    return PropPipe(child.type)
+  } else if (typeof child.type == 'function') { // Stateful component
+    const Child = MakeComp(child.type, child.props),
+          PipedChild = PropPipe(Child)
+    return <PipedChild />
+  } else if (typeof child.type == 'string') { // Element
+    return getPipedTarget(child.type, child.props)
+  } else {
+    return child
   }
+}
+
+const isStateless = (C) =>  C&&C.prototype&&!C.prototype.render || false
+
+const MakeComp = (Target, props) => class extends Target {
+  render = () => <Target { ...props } />
 }
 
 const PropPipe = (Target, origin) => {
-  console.log('TARGET', Target, origin)
-  return class PropPipe extends Target {
-    constructor(props) {
-      super(props)
-      let pipedTarget
-      if (!!this.render) {
+  if (!!Target.prototype.render) {
+    return class PropPipe extends Target {
+      constructor(props) {
+        super(props)
         const rComp = this.render(),
           { type } = rComp, // Prefix: r = rendered
-          rProps = rComp.props
-        pipedTarget = getPipedTarget(type, rProps)
-        console.log('SUCCCESS')
+          rProps = rComp.props,
+          pipedTarget = getPipedTarget(type, rProps)
         this.render = () => {
           return(pipedTarget)
         }
-      } else {
-        console.log('DEBUGGESS', origin)
-        //getPipedTarget(MakeComp(Target, { children: []}))
-        return <Target />
+      }
+    }
+  } else {
+    return class extends React.Component {
+      constructor(props) {
+        super(props)
+        const target = Target({}),
+              piped = getPipedTarget(target.type, target.props)
+        this.render = () => {
+          return(piped)
+        }
       }
     }
   }

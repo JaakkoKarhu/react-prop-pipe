@@ -1,7 +1,7 @@
 import React from 'react';
 
 const getPipedTarget = (type, props) => {
-
+  console.log('PRÅPS', props)
   let children
   props = props
   ? { ...props, className: props.className + ' red' }
@@ -26,8 +26,10 @@ const getPipedTarget = (type, props) => {
 }
 
 const handleChild = (child) => {
+  if (!child) return
   if (isStateless(child.type)) { // Stateless component
-    return PropPipe(child.type)
+    const Piped = PropPipe(child.type)
+    return <Piped { ...child.props }/>
   } else if (typeof child.type == 'function') { // Stateful component
     const Child = MakeComp(child.type, child.props),
           PipedChild = PropPipe(Child)
@@ -63,7 +65,7 @@ const PropPipe = (Target, origin) => {
     return class extends React.Component {
       constructor(props) {
         super(props)
-        const target = Target({}),
+        const target = Target(props || {}),
               piped = getPipedTarget(target.type, target.props)
         this.render = () => {
           return(piped)

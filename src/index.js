@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const getPipedTarget = (type, props={}, pipedProps, filter) => {
   let children
@@ -9,7 +9,7 @@ const getPipedTarget = (type, props={}, pipedProps, filter) => {
 
   if (Array.isArray(props.children))  { // multiple
     children = [ ...props.children ]
-    for (let i in children) {
+    for (const i in children) {
       const child = children[i]
       children[i] = handleChild(child, pipedProps, filter)
     }
@@ -26,7 +26,7 @@ const getPipedTarget = (type, props={}, pipedProps, filter) => {
 }
 
 const handleChild = (child, pipedProps, filter) => {
-  if (!child) return
+  //if (!child) return // Not sure which scenario this covers, commenting out
   if (isStateless(child.type)) { // Stateless component
     const Piped = PropPipe(child.type, pipedProps, filter)
     return <Piped { ...child.props }/>
@@ -48,8 +48,8 @@ const MakeComp = (Target, props) => class extends Target {
 }
 
 const PropPipe = (Target, pipedProps={}, filter=() => true) => {
-  if (!!Target.prototype.render) {
-    return class PropPipe extends Target {
+  if (!!Target.prototype.render) { // is component class
+    return class extends Target {
       constructor(props) {
         super(props)
         const rComp = this.render(),
@@ -73,6 +73,6 @@ const PropPipe = (Target, pipedProps={}, filter=() => true) => {
       }
     }
   }
-};
+}
 
-export default PropPipe;
+export default PropPipe

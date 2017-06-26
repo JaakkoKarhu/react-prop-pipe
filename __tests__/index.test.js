@@ -61,7 +61,6 @@ test('Pipe stateful', () => {
     const wrapper = shallow(
         <Piped />
     );
-    console.log(wrapper.html())
     expect(wrapper.prop('data-foo')).toBe('bar')
 });
 

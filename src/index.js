@@ -21,7 +21,7 @@ const getPipedTarget = (type, props={}, pipedProps, filter) => {
     return <Piped { ...props } />
   } else {
     const Elem = type
-    return <Elem { ...props }>{children}</Elem>
+    return <Elem { ...props } children={ children } />
   }
 }
 

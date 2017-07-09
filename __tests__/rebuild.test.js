@@ -5,18 +5,28 @@ import PropPipe from '../src/index'
 class Comp extends React.Component {
     render () {
         return (
-            <div ref='trol'>
-                <p ref='lol'>lol</p>
+            <div>
+                { this.props.children }
             </div>
         )
     }
 }
 
-class Nested extends React.Component {
+class CompInsideElem extends React.Component {
+    render() {
+        return (
+            <div>
+                <Comp/>
+            </div>
+        )
+    }
+}
+
+class CompInsideComp extends React.Component {
     render() {
         return (
             <Comp>
-
+                <Comp />
             </Comp>
         )
     }
@@ -33,24 +43,19 @@ const Stateless = () => {
 
 test('Basic component (stateful)', () => {
     const Piped = PropPipe(Comp)
-    const wrapper = mount(
-        <Piped />
-    )
-    console.log('Nested component (stateful)', '\n\n', wrapper.html())
+    const wrapper = mount( <Piped /> )
+    console.log('Basic component (stateful)', '\n\n', wrapper.html())
 })
 
-test('Nested component (stateful)', ()=> {
-    const Piped = PropPipe(Nested)
-    const wrapper = mount(
-        <Piped />
-    )
-    console.log('Nested component (stateful)', '\n\n', wrapper.html())
+test('Component inside of element (stateful)', () => {
+    const Piped = PropPipe(CompInsideElem)
+    const wrapper = mount ( <Piped />)
+    console.log('Component inside of element (stateful)', '\n\n', wrapper.html())
 })
-
-test ('Stateless component', () => {
-    const Piped = PropPipe(Stateless)
-    const wrapper = mount(
-        <Piped />
-    )
-    console.log('Stateless component', '\n\n', wrapper.html())
+test('Component inside of component (stateful)', () => {
+    const Piped = PropPipe(CompInsideComp)
+    const wrapper = mount ( <Piped />)
+    console.log('Component inside of component (stateful)', '\n\n', wrapper.html())
 })
+/*
+*/

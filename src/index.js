@@ -1,7 +1,8 @@
 import React from 'react'
+import { shallow } from 'enzyme'
 
 const handleCloning = (target) => {
-	// console.log('TARGET', target)
+	console.log('TARGET', target.props)
 	const children = handleChildren(target.props.children)
 	const addedProps = { 'data-test-foo': 'bar' }
 	if (typeof target.type=='string') {
@@ -40,6 +41,10 @@ const PropPipe = (Target, pipedProps={}, filter=() => true) => {
 			const { render } = Target.prototype
 			// does 'this' here cause maybe losing some attributes later on?
 			let target = !!render ? render.call(this) : Target(props || {})
+			console.log('PASSED TARGET', target)
+			console.log('ORIGINAL TARGET', Target)
+			const wrapper = shallow(<Target />)
+			console.log('ENZYMED TARGET', wrapper.getNode())
 			this.ForRender = handleCloning(target)
 		}
 

@@ -4,7 +4,7 @@ import PropPipe from '../src/index';
 
 class Comp extends React.Component {
     render() {
-        return <div>{this.props.children}</div>
+        return <div data-hold-this="ok">{this.props.children}</div>
     }
 }
 

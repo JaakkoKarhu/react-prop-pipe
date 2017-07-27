@@ -5,7 +5,7 @@ import PropPipe from '../src/index'
 class Comp extends React.Component {
     render () {
         return (
-            <div>
+            <div data-hold='ok'>
                 { this.props.children }
             </div>
         )
@@ -73,7 +73,7 @@ test('Basic component (stateful)', () => {
     const wrapper = mount( <Piped /> )
     console.log('Basic component (stateful)', '\n\n', wrapper.html())
 })
-
+/*
 test('Component inside of element (stateful)', () => {
     const Piped = PropPipe(CompInsideElem)
     const wrapper = mount ( <Piped />)
@@ -109,7 +109,5 @@ test('Array of children inside of element (stateless)', () => {
     const wrapper = mount( <Piped /> )
     console.log('Array of children inside of element (stateless)', '\n\n', wrapper.html())
 })
-
-/*
 
 */

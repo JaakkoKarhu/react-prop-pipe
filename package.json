@@ -43,6 +43,7 @@
     "eslint": "^3.16.0",
     "eslint-plugin-react": "^6.10.0",
     "jest": "^19.0.1",
+    "js-beautify": "^1.6.14",
     "react": "^15.3.0",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.3.0",

@@ -13,7 +13,6 @@ import { Comp,
 
 const testProps = { 'data-test-prop': 'foo' }
 
-
 test('Basic component (stateful)', () => {
     const Piped = PropPipe(Comp, testProps)
     const wrapper = mount( <Piped passed="foo" /> )

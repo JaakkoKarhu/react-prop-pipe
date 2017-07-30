@@ -18,6 +18,13 @@ module.exports = {
 
   devtool: 'cheap-module-inline-source-map',
 
+  externals: [
+    'react/addons',
+    'react/lib/ReactContext',
+    'react/lib/ExecutionEnvironment',
+    'react-addons-test-utils'
+  ],
+
   module: {
     rules: [{
       test: /\.js?$/,

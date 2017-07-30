@@ -22,7 +22,6 @@ test('Basic component (stateful)', () => {
     expect(wrapper.find('[data-test-passed="foo"]').length).toBe(1)
 })
 
-
 test('Elemen inside element (stateful)', ()=>{
     const Piped = PropPipe(ElemInElem, testProps)
     const wrapper = mount (<Piped />)

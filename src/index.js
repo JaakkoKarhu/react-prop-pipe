@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 
 const handleCloning = (target, pipedProps) => {
 	const children = handleChildren(target.props.children, pipedProps)
@@ -36,7 +36,6 @@ const handleChild = (child, pP) => {
   		const wrapper = shallow(<Child { ...child.props }/>)
   		return handleChild(wrapper.getNode(), pP)
   	} else {
-  		console.warn('HANDLE CHILD: Did not find type of the children. Returning default.')
   		return child
   	}
 }
